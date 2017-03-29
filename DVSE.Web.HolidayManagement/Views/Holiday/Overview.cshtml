@@ -1,0 +1,190 @@
+﻿@model DVSE.Web.HolidayManagement.Models.HolidayOverviewViewModel
+
+<div>You're logged in as @Model.LoggedInUserName</div>
+
+<div id="overview">
+    <div id="overview-left">
+        <fieldset>
+            <legend>Requests</legend>
+            <div id="all-requests">
+                <input id='btnDeleteRequest' type='button' value='Delete' />
+
+                <table id="tblRequests">
+                    <tr>
+                        <td></td>
+                    </tr>
+                </table> 
+            </div>
+        </fieldset>
+    </div>
+    <div id="overview-right">
+        @Html.Partial(MVC.Shared.Views._Calendars, Model.MonthlyCalendars)
+    </div>
+</div>
+
+@Html.Partial(MVC.Holiday.Views._Request, Model.RequestViewModel)
+
+@section Scripts
+{
+<script>
+    function HolidayOverviewModel() {
+        var self = this;
+
+        var startDate = null;
+        var endDate = null;
+
+        var $tdStartDate = null;
+
+        var $dlgRequest = null;
+
+        var $tbStartDate = null;
+        var $tbEndDate = null;
+
+        var $allRequests = null;
+
+        this.initialize = function () {
+            $dlgRequest = $("#dlgRequest");
+
+            $tbStartDate = $("#StartDate");
+            $tbStartDate.datepicker({ dateFormat: "dd-mm-yy" });
+
+            $tbEndDate = $("#EndDate");
+            $tbEndDate.datepicker({ dateFormat: "dd-mm-yy" });
+
+            $allRequests = $("#all-requests");
+
+            var $td = $(".month-calendar td");
+
+            $td.on("click", function () {
+                var day = $(this).html().parseInt();
+                var month = $(this).parents(".month-calendar").find("input[name=MonthIndex]").val().parseInt();
+
+                if (startDate == null) {
+                    startDate = new Date(2013, month, day);
+
+                    $tdStartDate = $(this);
+
+                    $(".first-marked").removeClass("first-marked");
+
+                    $(this).addClass("first-marked");
+                }
+                else {
+                    endDate = new Date(2013, month, day);
+
+                    $tbStartDate.val($.datepicker.formatDate("dd-mm-yy", startDate));
+                    $tbEndDate.val($.datepicker.formatDate("dd-mm-yy", endDate));
+
+                    startDate = null;
+
+                    $dlgRequest.dialog({
+                        width: 400,
+                        title: "Create request",
+                        resizable: false,
+                        modal: true,
+                        open: function (event, ui) {
+                        }
+                    });
+                }
+            });
+
+            $td.on("mouseover", function () {
+                if (startDate != null) {
+                    $(".marked").removeClass("marked");
+
+                    var day = parseInt($(this).html());
+                    var month = parseInt($(this).parents(".month-calendar").find("input[name=MonthIndex]").val());
+
+                    var pointedDate = new Date(2013, month, day);
+
+                    if (pointedDate > startDate) {
+                        var $current = $tdStartDate;
+
+                        var date = new Date();
+                        date.setMonth(startDate.getMonth());
+                        date.setDate(startDate.getDate());
+
+                        while (date < pointedDate) {
+                            $next = $current.next("td");
+
+                            if ($next.length == 0 || !$.trim($next.html())) {
+                                $next = $current.parent().next("tr").find("td:first");
+
+                                if ($next.length == 0) {
+                                    $next = $current.parents(".month-calendar").next().find("table tbody tr:first td:first");
+
+                                    if ($next.length == 0) 
+                                        $next = $current.parents(".calendars-row").next().find(".month-calendar:first table tbody tr:first td:first");
+                                    
+
+                                    while (!$.trim($next.html()))
+                                        $next = $next.next();
+                                }
+                            }
+
+                            $next.addClass("marked");
+
+                            $current = $next;
+
+                            date.setDate($next.html().parseInt());
+                            date.setMonth($next.parents(".month-calendar").find("input[name=MonthIndex]").val());
+                        }
+                    }
+                }
+            });
+
+            $("#tblRequests").jqGrid({
+                url: "/Holiday/GetRequests",
+                editurl: "/Holiday/EditRequest",
+                datatype: "json",
+                mtype: "GET",
+                height: 200,
+                colNames: ["Start date", "End date", "Purpose", "Status"],
+                colModel: [
+                    { name: "StartDate", width: 100, sortable: true },
+                    { name: "EndDate", width: 100, sortable: true },
+                    { name: "Purpose", width: 100, sortable: false },
+                    { name: "Status", width: 100, sortable: true },
+                ],
+                scroll: true
+                //gridComplete: function () {
+                //    var ids = $("#tblRequests").jqGrid('getDataIDs');
+                //    for (var i = 0; i < ids.length; i++) {
+                //        var html = "<input class='btnDeleteRequest' type='button' value='Delete' />";
+
+                //        $("#tblRequests").jqGrid('setRowData', ids[i], { Action: html });
+                //    }
+
+                //    $(".btnDeleteRequest").on ("click", deleteRequest);
+                //}
+            });
+
+            $("#btnDeleteRequest").on("click", deleteRequest);
+        };
+
+        var deleteRequest = function () {
+            var row = $("#tblRequests").jqGrid('getGridParam', 'selrow');
+
+            if (row != null)
+                $("#tblRequests").jqGrid('delGridRow', row, { reloadAfterSubmit: true });
+        };
+
+        this.createRequestCallback = function (result) {
+            var resultJSON = JSON.parse(result.responseText);
+
+            if (resultJSON.success) {
+                $dlgRequest.dialog("close");
+
+                $(".marked, .first-marked").removeClass("marked").removeClass("first-marked");
+
+                $("#tblRequests").trigger("reloadGrid");
+            }
+        };
+    }
+
+    var holidayOverviewModel = new HolidayOverviewModel();
+
+    $(function () {
+        holidayOverviewModel.initialize();
+    });
+</script>
+}

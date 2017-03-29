@@ -1,0 +1,16 @@
+﻿@model System.Collections.Generic.IList<DVSE.Web.HolidayManagement.Models.MonthlyCalendarViewModel>
+
+@helper PrintCalendars(int i)
+{
+    for (var j = i; j < i + 4; ++j)
+    {
+        Html.RenderPartial(MVC.Shared.Views._MonthlyCalendar, Model[j]);
+    }
+}
+
+@for (var i = 0; i < Model.Count(); i += 4)
+{
+    <div class="calendars-row">
+        @PrintCalendars(i) 
+    </div>
+}

@@ -1,0 +1,77 @@
+﻿@model DVSE.Web.HolidayManagement.Models.MonthlyCalendarViewModel
+
+<div class="month-calendar">
+    <input type="hidden" name="MonthIndex" value="@Model.MonthIndex" />
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="7" class="month-cell">@Model.Month</th>
+            </tr>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var weeks = Math.Ceiling((double)(Model.NumberOfDays + Model.FirstDay) / 7);
+                var day = 0;    
+        
+                for (var i = 0; i < weeks; ++i)
+                {
+                    <tr>
+                        @for (var j = 0; j < 7; ++j)
+                        {
+                            var content = 0;
+                            
+                            if (i == 0)
+                            {
+                                if (j >= Model.FirstDay)
+                                {
+                                    content = ++day; 
+                                }
+                            }
+                            else
+                            {
+                                if (day < Model.NumberOfDays)
+                                {
+                                    content = ++day; 
+                                }
+                            }
+
+                            if (content == 0)
+                            { 
+                                <td>
+                                </td>
+                            }
+                            else
+                            {
+                                var classNames = "none";
+
+                                if (Model.Holidays.Contains(content))
+                                {
+                                    classNames = "holiday";
+                                }
+                                else
+                                    if (Model.Requests.Contains(content))
+                                    {
+                                        classNames = "request";
+                                    }
+                                
+                                <td class="@classNames">
+                                    @content
+                                </td>
+                            }
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

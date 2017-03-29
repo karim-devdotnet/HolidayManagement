@@ -1,0 +1,61 @@
+﻿@model DVSE.Web.HolidayManagement.Models.HolidayPeriodViewModel
+
+<div class="fHolidayPeriod dialog">
+    @using (Ajax.BeginForm(MVC.Management.EditHolidayPeriod(), new AjaxOptions() { OnComplete = "ManagementModel.instance.updateCallback" }))
+    {
+        <div>
+            <div>
+                Start date
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.StartDate, new { @Value = Model.StartDate.Value.ToString("dd-MM-yyyy") })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(x => x.StartDate)
+            </div>
+        </div>
+        <div>
+            <div>
+                End date
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.EndDate, new { @Value = Model.EndDate.Value.ToString("dd-MM-yyyy") })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(x => x.EndDate)
+            </div>
+        </div>
+        <div>
+            <div>
+                Note
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.Note)
+            </div>
+        </div>
+        <div>
+            <div>
+                Purpose
+            </div>
+            <div>
+                @Html.DropDownListFor(x => x.PurposeId, Model.Purposes, "Please select a reason")
+            </div>
+            <div>
+                @Html.ValidationMessageFor(x => x.PurposeId)
+            </div>
+        </div>
+        
+        <div>
+            <input type="submit" value="Save" />
+
+            <input type="button" value="Cancel" class="cancel" />
+        </div>
+    }
+</div>
+
+@if (Request.IsAjaxRequest()) 
+{ 
+<script>
+    $.validator.unobtrusive.parse(".fHolidayPeriod");
+</script>
+}

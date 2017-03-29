@@ -1,0 +1,1 @@
+﻿Update-Database -ProjectName "DVSE.DAL.HolidayManagement" -ConnectionString "Data Source=koon.absolute.local\KOONSQL2012;Initial Catalog=HolidayManagementDb;Integrated Security=True" -ConnectionProviderName "System.Data.SqlClient"

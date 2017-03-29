@@ -1,0 +1,80 @@
+﻿
+.month-calendar {
+    display:inline-block;
+    vertical-align:top;
+    margin: 5px;
+    border: solid 1px #000;
+    font-size: 11px;
+}
+
+.calendars-row {
+    text-align: center;
+}
+
+.month-cell {
+    text-align:center;
+}
+
+.month-calendar th {
+    padding: 2px;
+    text-align: center;
+    font-size: 11px;
+}
+
+.month-calendar td {
+    padding: 0;
+    cursor: pointer;
+}
+
+.month-calendar td.marked, .month-calendar td.first-marked {
+    background-color: red;
+}
+
+.hidden {
+    display: none;
+}
+
+#dlgRequest {
+    display: none;
+}
+
+#overview {
+    text-align:center;
+}
+
+#overview-left {
+    display: inline-block;
+    vertical-align:top;
+}
+
+#overview-right {
+    display: inline-block;
+}
+
+#all-requests {
+    text-align: left;
+}
+
+#btnDeleteRequest {
+    font-size: 0.85em;
+}
+
+body {
+    margin: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.cancelled td {
+    background-color: orange;
+}
+
+td.holiday {
+    background-color: green;
+}
+
+td.request {
+    background-color: palegreen;
+}

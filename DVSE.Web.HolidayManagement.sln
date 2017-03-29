@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DVSE.Web.HolidayManagement", "DVSE.Web.HolidayManagement\DVSE.Web.HolidayManagement.csproj", "{2BB7DDC3-063C-4310-82E2-908ED8E72A16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DVSE.DAL.HolidayManagement", "DVSE.DAL.HolidayManagement\DVSE.DAL.HolidayManagement.csproj", "{7E6F8795-9FA6-455F-B302-2D67FF89E9EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2BB7DDC3-063C-4310-82E2-908ED8E72A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BB7DDC3-063C-4310-82E2-908ED8E72A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BB7DDC3-063C-4310-82E2-908ED8E72A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BB7DDC3-063C-4310-82E2-908ED8E72A16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E6F8795-9FA6-455F-B302-2D67FF89E9EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E6F8795-9FA6-455F-B302-2D67FF89E9EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E6F8795-9FA6-455F-B302-2D67FF89E9EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E6F8795-9FA6-455F-B302-2D67FF89E9EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal

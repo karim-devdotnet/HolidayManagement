@@ -1,0 +1,44 @@
+﻿@model DVSE.Web.HolidayManagement.Models.RequestViewModel
+
+<div id="dlgRequest">
+    @using (Ajax.BeginForm(MVC.Holiday.CreateRequest(), new AjaxOptions() { OnComplete = "holidayOverviewModel.createRequestCallback" }))
+    {
+        <div>
+            <div>
+                Start date
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.StartDate)
+            </div>
+            <div>
+                @Html.ValidationMessageFor(x => x.StartDate)
+            </div>
+        </div>
+        <div>
+            <div>
+                End date
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.EndDate)
+            </div>
+            <div>
+                @Html.ValidationMessageFor(x => x.EndDate)
+            </div>
+        </div>
+        <div>
+            <div>
+                Reason
+            </div>
+            <div>
+                @Html.DropDownListFor(x => x.PurposeId, Model.Purposes, "Please select reason")
+            </div>
+            <div>
+                @Html.ValidationMessageFor(x => x.PurposeId)
+            </div>
+        </div>
+        
+        <div>
+            <input type="submit" value="Create" />
+        </div>
+    }
+</div>

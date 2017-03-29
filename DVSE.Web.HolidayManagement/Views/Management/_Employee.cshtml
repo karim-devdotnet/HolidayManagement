@@ -1,0 +1,76 @@
+﻿@model DVSE.Web.HolidayManagement.Models.EmployeeViewModel
+
+<div id="fEmployee">
+    @using (Ajax.BeginForm(MVC.Management.EditEmployee(), new AjaxOptions() { OnComplete = "ManagementModel.instance.updateCallback" }))
+    {
+        @Html.HiddenFor(x => x.Id)
+        
+        <div>
+            <div>
+                First name
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.FirstName)
+            </div>
+            <div>
+                @Html.ValidationMessageFor(x => x.FirstName)
+            </div>
+        </div>
+        <div>
+            <div>
+                Last name
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.LastName)
+            </div>
+            <div>
+                @Html.ValidationMessageFor(x => x.LastName)
+            </div>
+        </div>
+        <div>
+            <div>
+                Email address
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.EmailAddress)
+            </div>
+        </div>
+        <div>
+            <div>
+                Hire date
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.HireDate)
+            </div>
+        </div>
+        <div>
+            <div>
+                Team
+            </div>
+            <div>
+                @Html.DropDownListFor(x => x.TeamId, Model.Teams, "Please select team")
+            </div>
+        </div>
+        <div>
+            <div>
+                Days available
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.DaysAvailable)
+            </div>
+            <div>
+                @Html.ValidationMessageFor(x => x.DaysAvailable)
+            </div>
+        </div>
+        
+        <div>
+            <input type="submit" value="Update" />
+
+            <input type="button" value="Cancel" class="cancel" />
+        </div>
+    }
+</div>
+
+<script>
+    $.validator.unobtrusive.parse("#fEmployee");
+</script>
